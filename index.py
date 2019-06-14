@@ -2,13 +2,14 @@
 # coding: utf-8
 
 import cgi 
+import construct
 #import cgitb; cgitb.enable()
 
 form = cgi.FieldStorage()
 print("Content-type: text/html; charset=utf-8\n")
 
 
-html= """<!DOCTYPE html>
+html_head= '''<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8"/>
@@ -25,17 +26,17 @@ html= """<!DOCTYPE html>
     
     table {  
     border: medium solid #000000;
-    width: 50%;
+    width: 100%;
     }
     
     td, th {
     border: thin solid #6495ed;
     width: 10%;
-    }
+    } 
     </style>
-</head>
+</head>'''
 
-<body>
+html_body= '''<body>
     <h1>Tableau Récapitulatif Git</h1>
     
     <table>
@@ -45,33 +46,21 @@ html= """<!DOCTYPE html>
     <th>Chemin</th>
     <th>Date-Modif</th>
     <th>Dernier Pusher</th>
-    </tr>
-    
-    <tr>
-    <td>cellule A1</td>
-    <td>cellule B1</td>
-    <td>cellule C1</td>
-    <td>cellule D1</td>
-    </tr>
-    
-    <tr>
-    <td>cellule A2</td>
-    <td>cellule B2</td>
-    <td>cellule C2</td>
-    <td>cellule D2</td>
-    </tr>
-    
-    <tr>
-    <td>cellule A3</td>
-    <td>cellule B3</td>
-    <td>celulle C3</td>
-    <td>celulle D3</td>
-    </tr>
+    </tr>'''
+	
+html_git =""
+contenu_git = construct.main()
 
+for file in contenu_git:
+	html_git += "<tr><td>"+ file[0]+ "</td><td>"+ file[1]+ "</td><td>"+ file[2]+ "</td><td>"+ file[3]+"</td></tr>"
+
+html_foot = '''
     </table>
 </body>
-</html>
-"""
+</html>'''
+
+html = html_head + html_body + html_git + html_foot
+
 print(html)
 
 
