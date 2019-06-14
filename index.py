@@ -52,7 +52,7 @@ html_git =""
 contenu_git = construct.main()
 
 for file in contenu_git:
-	html_git += "<tr><td>"+ file[0]+ "</td><td>"+ file[1]+ "</td><td>"+ file[2]+ "</td><td>"+ file[3]+"</td></tr>"
+	html_git += "<tr><td><a href=\""+ str(file[1])+ "\">"+ str(file[0])+ "</a></td><td>"+ str(file[1])+ "</td><td>"+ str(file[2])+ "</td><td>"+ str(file[3])+"</td></tr>"
 
 html_foot = '''
     </table>
