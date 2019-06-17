@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#permet de connaitre le nombre de seconde depuis la derniere modif ou un truc du genre
-#mais en tout cas c'est une valeur fixe qui varie dans le temps
+#permet de connaitre le nombre de seconde depuis 01/01/1970 de la derniere modif 
+
 t1=`find /backup/ -printf "%Td-%Tm-%Ty \n" | tail -1`
 t2=`find /home/git/projet-1.git/ -printf "%Td-%Tm-%Ty \n" | tail -1`
 
