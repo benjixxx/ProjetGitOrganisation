@@ -34,41 +34,45 @@ def main():
 			# i+=1
 
 	# traverse dossier directory, and list directories as dirs and files as files
-	change_directory=True
+	
 	for dossier, sous_dossiers, fichiers in os.walk(dir):
 		sous_dossiers[:] = [d for d in sous_dossiers if not d[0] == '.']
 		path = dossier.split(os.sep)
-		
-		for file in fichiers:
-			if os.path.isfile(file):
-				tab[i][0] = (len(path) - len(dir.split(os.sep))) * '---' + file
-				tab[i][1]=os.path.abspath(file)
-				tab[i][2]=time.ctime(os.path.getctime(file))
-				cmd="git log "+ file+ " | grep Author | cut -d' ' -f2 | head -1"
-				tab[i][3]=subprocess.check_output(cmd, shell=True)
-				print(subprocess.check_output(cmd, shell=True))
-			elif os.path.isfile(dossier+"/"+file):
-				if change_directory:
-					change_directory=False
-					tab[i][0] = (len(path) - len(dir.split(os.sep))) * '---' + os.path.basename(dossier)
-					tab[i][1]=os.path.abspath(dossier)
-					tab[i][2]=time.ctime(os.path.getctime(dossier))
-					cmd="git log "+ dossier+"/"+file+ " | grep Author | cut -d' ' -f2 | head -1"
+		for sous_dossier in sous_dossiers :
+			change_directory=True
+			for file in fichiers:
+				if os.path.isfile(file):
+					tab[i][0] = (len(path) - len(dir.split(os.sep))) * '---' + file
+					tab[i][1]=os.path.abspath(file)
+					tab[i][2]=time.ctime(os.path.getctime(file))
+					cmd="git log "+ file+ " | grep Author | cut -d' ' -f2 | head -1"
 					tab[i][3]=subprocess.check_output(cmd, shell=True)
-					i+=1
-					tab[i][0] = (len(path) - len(dir.split(os.sep))) * '---' + os.path.basename(dossier+"/"+file)
-					tab[i][1]=os.path.abspath(dossier+"/"+file)
-					tab[i][2]=time.ctime(os.path.getctime(dossier+"/"+file))
-					cmd="git log "+ dossier+"/"+file+ " | grep Author | cut -d' ' -f2 | head -1"
-					tab[i][3]=subprocess.check_output(cmd, shell=True)
+					print(sous_dossier)
 					
-				else:
-					tab[i][0] = (len(path) - len(dir.split(os.sep))) * '---' + os.path.basename(dossier+"/"+file)
-					tab[i][1]=os.path.abspath(dossier+"/"+file)
-					tab[i][2]=time.ctime(os.path.getctime(dossier+"/"+file))
-					cmd="git log "+ dossier+"/"+file+ " | grep Author | cut -d' ' -f2 | head -1"
-					tab[i][3]=subprocess.check_output(cmd, shell=True)
-			i+=1
+				elif os.path.isfile(sous_dossier+"/"+file):
+				
+				### A REVOIR POUR LES SOUS DOSSIER ###
+					if change_directory:
+						change_directory=False
+						tab[i][0] = (len(path) - len(dir.split(os.sep))) * '---' + os.path.basename(dossier)
+						tab[i][1]=os.path.abspath(dossier)
+						tab[i][2]=time.ctime(os.path.getctime(dossier))
+						cmd="git log "+ dossier+"/"+file+ " | grep Author | cut -d' ' -f2 | head -1"
+						tab[i][3]=subprocess.check_output(cmd, shell=True)
+						i+=1
+						tab[i][0] = (len(path) - len(dir.split(os.sep))) * '---' + os.path.basename(dossier+"/"+file)
+						tab[i][1]=os.path.abspath(dossier+"/"+file)
+						tab[i][2]=time.ctime(os.path.getctime(dossier+"/"+file))
+						cmd="git log "+ dossier+"/"+file+ " | grep Author | cut -d' ' -f2 | head -1"
+						tab[i][3]=subprocess.check_output(cmd, shell=True)
+						
+					else:
+						tab[i][0] = (len(path) - len(dir.split(os.sep))) * '---' + os.path.basename(dossier+"/"+file)
+						tab[i][1]=os.path.abspath(dossier+"/"+file)
+						tab[i][2]=time.ctime(os.path.getctime(dossier+"/"+file))
+						cmd="git log "+ dossier+"/"+file+ " | grep Author | cut -d' ' -f2 | head -1"
+						tab[i][3]=subprocess.check_output(cmd, shell=True)
+				i+=1
 			
 	
 
