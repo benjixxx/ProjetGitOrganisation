@@ -51,7 +51,7 @@ def main():
 					name += '├─' 
 				name += os.path.basename(dossier+"/"+file)
 				tab[i][0] = name
-				#tab[i][1]=os.path.abspath(dossier+"/"+file) #emplacement dossier
+				tab[i][1]=os.path.abspath(dossier+"/"+file) #emplacement dossier
 				tab[i][2]=time.ctime(os.path.getctime(dossier+"/"+file))
 				cmd="git log "+ dossier+"/"+file+ " | grep Author | cut -d' ' -f2 | head -1"
 				tab[i][3]=subprocess.check_output(cmd, shell=True)
@@ -65,7 +65,7 @@ def main():
 				name += '└─' 
 			name += os.path.basename(sous_dossiers[dir_index])
 			tab[i][0] = name
-			# tab[i][1]=os.path.abspath(dossier) #emplacement dossier
+			tab[i][1]=os.path.abspath(dossier) #emplacement dossier
 			tab[i][2]=time.ctime(os.path.getctime(dossier))
 			cmd="git log "+ dossier+"/"+file+ " | grep Author | cut -d' ' -f2 | head -1"
 			tab[i][3]=subprocess.check_output(cmd, shell=True)
